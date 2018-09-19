@@ -12,3 +12,7 @@ def parse_data(csv_path='../input/train.csv', nrows=None):
         df = df.join(pd.DataFrame(df.pop(column).apply(pd.io.json.loads).values.tolist(), index=df.index))
 
     return df
+
+## save
+#df = parse_data()
+#df.to_csv('../output/train.csv', sep=',', encoding='utf-8')

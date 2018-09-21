@@ -1,9 +1,8 @@
 ![](https://storage.googleapis.com/kaggle-media/competitions/RStudio/google_store.jpg)
 
-# Deep Learning regression with Tensorflow
+## Google Analytics Customer Revenue Prediction
 
-### Google Analytics Customer Revenue Prediction
-#### Predict how much GStore customers will spend
+### Predict how much GStore customers will spend
 
 Kaggle competition: https://www.kaggle.com/c/google-analytics-customer-revenue-prediction
 

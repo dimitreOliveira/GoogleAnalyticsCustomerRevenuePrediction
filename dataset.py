@@ -11,6 +11,17 @@ def parse_data(csv_path='../input/train.csv', nrows=None):
 
     return df
 
-## save
-#df = parse_data()
-#df.to_csv('../output/train.csv', sep=',', encoding='utf-8')
+
+def add_time_features(df):
+    df['date'] = pd.to_datetime(df['date'], format='%Y%m%d', errors='ignore')
+    df['year'] = df['date'].apply(lambda x: x.year)
+    df['month'] = df['date'].apply(lambda x: x.month)
+    df['day'] = df['date'].apply(lambda x: x.day)
+    df['weekday'] = df['date'].apply(lambda x: x.weekday())
+
+    return df
+
+
+# # save
+# df = parse_data()
+# df.to_csv('../output/train.csv', sep=',', encoding='utf-8')

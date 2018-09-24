@@ -2,7 +2,7 @@ import pandas as pd
 from pandas.io.json import json_normalize
 
 
-def parse_data(csv_path='../input/train.csv', nrows=None):
+def parse_data(csv_path='data/train_raw.csv', nrows=None):
     json_columns = ['device', 'geoNetwork', 'totals', 'trafficSource']
     df = pd.read_csv(csv_path, dtype={'fullVisitorId': 'str'}, nrows=nrows)
 
@@ -22,6 +22,8 @@ def add_time_features(df):
     return df
 
 
-# # save
-# df = parse_data()
-# df.to_csv('../output/train.csv', sep=',', encoding='utf-8')
+# # Script
+# train = parse_data('data/train_raw.csv')
+# train.to_csv('data/train.csv', index=False)
+# test = parse_data('data/test_raw.csv')
+# test.to_csv('data/test.csv', index=False)

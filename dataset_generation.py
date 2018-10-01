@@ -1,4 +1,30 @@
+import csv
 from dataset import parse_data, add_time_features
+
+
+def split_data(input_data_path='data/train.csv', train_data_path='data/tf_train.csv',
+               validation_data_path='data/tf_validation.csv', ratio=10):
+    """
+    Splits the csv file (meant to generate train and validation sets).
+    :param input_data_path: path containing the full data set.
+    :param train_data_path: path to write the train set.
+    :param validation_data_path: path to write the validation set.
+    :param ratio: ration to split train and validation sets, (default: 1 of every 10 rows will be validation or 10%)
+    """
+    with open(input_data_path, 'r') as inp, open(train_data_path, 'w', newline='') as out1, \
+            open(validation_data_path, 'w', newline='') as out2:
+        csv_reader = csv.reader(inp)
+        # Skip header
+        next(csv_reader)
+        writer1 = csv.writer(out1)
+        writer2 = csv.writer(out2)
+        count = 0
+        for row in csv_reader:
+            if count % ratio == 0:
+                writer2.writerow(row)
+            else:
+                writer1.writerow(row)
+            count += 1
 
 
 # Script to load, parse and process data.
@@ -8,7 +34,7 @@ unwanted_columns = ['channelGrouping', 'fullVisitorId', 'sessionId', 'socialEnga
                     'mobileDeviceModel', 'mobileInputSelector', 'operatingSystem', 'operatingSystemVersion',
                     'screenColors', 'screenResolution', 'city', 'cityId', 'metro', 'networkDomain', 'networkLocation',
                     'adContent', 'adwordsClickInfo', 'campaign', 'isTrueDirect', 'keyword', 'medium',
-                    'referralPath', 'source', 'latitude', 'longitude']
+                    'referralPath', 'source', 'latitude', 'longitude', 'continent', 'country', 'region', 'subContinent']
 
 train = parse_data('data/train_raw.csv')
 train.drop(['campaignCode'], axis=1, inplace=True)
@@ -22,3 +48,6 @@ test.drop(unwanted_columns, axis=1, inplace=True)
 test = add_time_features(test)
 test.drop(['date'], axis=1, inplace=True)
 test.to_csv('data/test.csv', index=False)
+
+# Generate train and validation files
+split_data()

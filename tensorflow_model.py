@@ -7,21 +7,22 @@ tf.logging.set_verbosity(tf.logging.INFO)
 TRAIN_PATH = 'data/tf_train.csv'
 VALIDATION_PATH = 'data/tf_validation.csv'
 TEST_PATH = 'data/test.csv'
-MODEL_DIR = 'models/model1'
-SUBMISSION_NAME = 'submission1.csv'
+MODEL_DIR = 'models/model4'
+SUBMISSION_NAME = 'submission4.csv'
 
+# Model parameters
 LEARNING_RATE = 0.0001
 HIDDEN_UNITS = [32, 32, 16]
-STEPS = 30000
+STEPS = 50000
 BATCH_SIZE = 512
-CSV_COLUMNS = ['fullVisitorId', 'visitNumber', 'bounces', 'hits', 'newVisits', 'pageviews', 'transactionRevenue',
-               'visits', 'year',
-               'month', 'day', 'weekday']
+CSV_COLUMNS = ['fullVisitorId', 'visitNumber', 'isMobile', 'bounces', 'hits', 'newVisits', 'pageviews',
+               'transactionRevenue', 'visits', 'year', 'month', 'day', 'weekday']
 LABEL_COLUMN = 'transactionRevenue'
-DEFAULTS = [['default_id'], [1.0], [1.0], [1.0], [1.0], [1.0], [0.0], [1.0], [2016.0], [9.0], [2.0], [4.0]]
+DEFAULTS = [['default_id'], [0.0], ['False'], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [2016.0], [1.0], [1.0], [1.0]]
 INPUT_COLUMNS = [
-    # raw data columns
+    # Raw data columns
     tf.feature_column.numeric_column('visitNumber'),
+    tf.feature_column.categorical_column_with_vocabulary_list('isMobile', vocabulary_list=['True', 'False']),
     tf.feature_column.numeric_column('bounces'),
     tf.feature_column.numeric_column('hits'),
     tf.feature_column.numeric_column('newVisits'),
@@ -46,6 +47,7 @@ tf.estimator.train_and_evaluate(estimator, train_spec=train_spec, eval_spec=eval
 # Make predictions
 datatypes = {'fullVisitorId': 'str',
              'visitNumber': 'float32',
+             'isMobile': 'str',
              'bounces': 'float32',
              'hits': 'float32',
              'newVisits': 'float32',

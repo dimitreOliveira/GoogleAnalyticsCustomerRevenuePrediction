@@ -15,16 +15,6 @@ def parse_data(csv_path='data/train_raw.csv', nrows=None):
     return df
 
 
-def add_time_features(df):
-    df['date'] = pd.to_datetime(df['date'], format='%Y%m%d', errors='ignore')
-    df['year'] = df['date'].apply(lambda x: x.year)
-    df['month'] = df['date'].apply(lambda x: x.month)
-    df['day'] = df['date'].apply(lambda x: x.day)
-    df['weekday'] = df['date'].apply(lambda x: x.weekday())
-
-    return df
-
-
 def add_engineered(features):
     # Feature engineering as data is fed
     # Nothing yet!

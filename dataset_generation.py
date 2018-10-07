@@ -1,6 +1,18 @@
 import csv
 import numpy as np
-from dataset import parse_data, add_time_features
+import pandas as pd
+from dataset import parse_data
+
+
+def add_time_features(df):
+    df['date'] = pd.to_datetime(df['date'], format='%Y%m%d', errors='ignore')
+    df['year'] = df['date'].apply(lambda x: x.year)
+    df['month'] = df['date'].apply(lambda x: x.month)
+    df['day'] = df['date'].apply(lambda x: x.day)
+    df['weekday'] = df['date'].apply(lambda x: x.weekday())
+    df = df.drop(['date'], axis=1)
+
+    return df
 
 
 def split_data(input_data_path='data/train.csv', train_data_path='data/tf_train.csv',
@@ -35,24 +47,23 @@ unwanted_columns = ['channelGrouping', 'sessionId', 'socialEngagementType', 'vis
                     'mobileDeviceModel', 'mobileInputSelector', 'operatingSystem', 'operatingSystemVersion',
                     'screenColors', 'screenResolution', 'city', 'cityId', 'metro', 'networkDomain', 'networkLocation',
                     'adContent', 'adwordsClickInfo', 'campaign', 'isTrueDirect', 'keyword', 'medium',
-                    'referralPath', 'source', 'latitude', 'longitude', 'continent', 'country', 'region', 'subContinent',
-                    'isMobile']
+                    'referralPath', 'source', 'latitude', 'longitude', 'continent', 'country', 'region', 'subContinent']
 
 train = parse_data('data/train_raw.csv')
+train.to_csv('data/train_parsed.csv', index=False)
 train.drop(['campaignCode'], axis=1, inplace=True)
 train.drop(unwanted_columns, axis=1, inplace=True)
 train = add_time_features(train)
-train.drop(['date'], axis=1, inplace=True)
 train["transactionRevenue"] = train["transactionRevenue"].astype('float')
 train["transactionRevenue"].fillna(0, inplace=True)
+train.dropna(subset=['transactionRevenue'], inplace=True)
 train["transactionRevenue"] = np.log1p(train["transactionRevenue"])
-train.dropna(inplace=True)
 train.to_csv('data/train.csv', index=False)
 
 test = parse_data('data/test_raw.csv')
+test.to_csv('data/test_parsed.csv', index=False)
 test.drop(unwanted_columns, axis=1, inplace=True)
 test = add_time_features(test)
-test.drop(['date'], axis=1, inplace=True)
 test.to_csv('data/test.csv', index=False)
 
 # Generate train and validation files

@@ -4,22 +4,31 @@ import tensorflow as tf
 
 def build_deep_estimator(model_dir, hidden_units, optimizer, input_columns, run_config=None):
     # Input columns
-    (visitNumber, isMobile, continent, subContinent, bounces, hits, newVisits, pageviews, visits) = input_columns
+    (visitNumber, isMobile, continent, subContinent, bounces, hits, newVisits, pageviews, visits, year, month, day,
+     weekday) = input_columns
 
     # Turn sparse columns into one-hot
     oh_isMobile = tf.feature_column.indicator_column(isMobile)
+    oh_month = tf.feature_column.indicator_column(month)
+    oh_day = tf.feature_column.indicator_column(day)
+    oh_weekday = tf.feature_column.indicator_column(weekday)
+
+    # Feature cross
+    month_day = tf.feature_column.crossed_column([month, day], 13 * 32)
 
     feature_columns = [
         # Embedding_column to "group" together
         tf.feature_column.embedding_column(continent, np.floor((6 ** 0.25))),
         tf.feature_column.embedding_column(subContinent, np.floor((23 ** 0.25))),
+        tf.feature_column.embedding_column(month_day, np.floor((13 * 32) ** 0.25)),
 
         # One-hot encoded columns
-        oh_isMobile,
+        oh_isMobile, oh_month,
+        oh_day, oh_weekday,
 
         # Numeric columns
         visitNumber, bounces, hits, newVisits,
-        pageviews, visits
+        pageviews, visits, year
     ]
 
     estimator = tf.estimator.DNNRegressor(
@@ -37,7 +46,8 @@ def build_deep_estimator(model_dir, hidden_units, optimizer, input_columns, run_
 
 def build_combined_estimator(model_dir, hidden_units, optimizer, input_columns, run_config=None):
     # Input columns
-    (visitNumber, isMobile, continent, subContinent, bounces, hits, newVisits, pageviews, visits) = input_columns
+    (visitNumber, isMobile, continent, subContinent, bounces, hits, newVisits, pageviews, visits, year, month, day,
+     weekday) = input_columns
 
     deep_columns = [
         # Numeric columns

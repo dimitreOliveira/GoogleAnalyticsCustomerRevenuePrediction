@@ -7,11 +7,11 @@ tf.logging.set_verbosity(tf.logging.INFO)
 TRAIN_PATH = 'data/tf_train.csv'
 VALIDATION_PATH = 'data/tf_validation.csv'
 TEST_PATH = 'data/test.csv'
-MODEL_DIR = 'models/model5'
-SUBMISSION_NAME = 'submission5.csv'
+MODEL_DIR = 'models/model6'
+SUBMISSION_NAME = 'submission6.csv'
 
 # Model parameters
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0001
 HIDDEN_UNITS = [32, 32, 16]
 STEPS = 50000
 BATCH_SIZE = 512
@@ -23,7 +23,7 @@ CSV_COLUMNS = ['fullVisitorId', 'visitNumber', 'isMobile', 'continent', 'subCont
                'pageviews', 'transactionRevenue', 'visits', 'year', 'month', 'day', 'weekday']
 LABEL_COLUMN = 'transactionRevenue'
 DEFAULTS = [['default_id'], [0.0], ['False'], ['continent_not_set'], ['subContinent_not_set'], [0.0], [0.0], [0.0],
-            [0.0], [0.0], [0.0], [2016.0], [1.0], [1.0], [1.0]]
+            [0.0], [0.0], [0.0], [2016], [1], [1], [1]]
 INPUT_COLUMNS = [
     # Raw data columns
     tf.feature_column.numeric_column('visitNumber'),
@@ -34,7 +34,11 @@ INPUT_COLUMNS = [
     tf.feature_column.numeric_column('hits'),
     tf.feature_column.numeric_column('newVisits'),
     tf.feature_column.numeric_column('pageviews'),
-    tf.feature_column.numeric_column('visits')
+    tf.feature_column.numeric_column('visits'),
+    tf.feature_column.numeric_column('year'),
+    tf.feature_column.categorical_column_with_identity('month', num_buckets=13),
+    tf.feature_column.categorical_column_with_identity('day', num_buckets=32),
+    tf.feature_column.categorical_column_with_identity('weekday', num_buckets=7)
 ]
 
 train_spec = tf.estimator.TrainSpec(input_fn=read_dataset(TRAIN_PATH, mode=tf.estimator.ModeKeys.TRAIN,

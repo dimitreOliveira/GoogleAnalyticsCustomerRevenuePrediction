@@ -7,22 +7,29 @@ tf.logging.set_verbosity(tf.logging.INFO)
 TRAIN_PATH = 'data/tf_train.csv'
 VALIDATION_PATH = 'data/tf_validation.csv'
 TEST_PATH = 'data/test.csv'
-MODEL_DIR = 'models/model4'
-SUBMISSION_NAME = 'submission4.csv'
+MODEL_DIR = 'models/model5'
+SUBMISSION_NAME = 'submission5.csv'
 
 # Model parameters
-LEARNING_RATE = 0.0001
+LEARNING_RATE = 0.001
 HIDDEN_UNITS = [32, 32, 16]
 STEPS = 50000
 BATCH_SIZE = 512
-CSV_COLUMNS = ['fullVisitorId', 'visitNumber', 'isMobile', 'bounces', 'hits', 'newVisits', 'pageviews',
-               'transactionRevenue', 'visits', 'year', 'month', 'day', 'weekday']
+
+
+VOCAB_MOBILE = ['True', 'False']
+VOCAB_CONTINENT = ['Asia', 'Oceania', 'Europe', 'Americas', 'Africa', '(not set)']
+CSV_COLUMNS = ['fullVisitorId', 'visitNumber', 'isMobile', 'continent', 'subContinent', 'bounces', 'hits', 'newVisits',
+               'pageviews', 'transactionRevenue', 'visits', 'year', 'month', 'day', 'weekday']
 LABEL_COLUMN = 'transactionRevenue'
-DEFAULTS = [['default_id'], [0.0], ['False'], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [2016.0], [1.0], [1.0], [1.0]]
+DEFAULTS = [['default_id'], [0.0], ['False'], ['continent_not_set'], ['subContinent_not_set'], [0.0], [0.0], [0.0],
+            [0.0], [0.0], [0.0], [2016.0], [1.0], [1.0], [1.0]]
 INPUT_COLUMNS = [
     # Raw data columns
     tf.feature_column.numeric_column('visitNumber'),
-    tf.feature_column.categorical_column_with_vocabulary_list('isMobile', vocabulary_list=['True', 'False']),
+    tf.feature_column.categorical_column_with_vocabulary_list('isMobile', vocabulary_list=VOCAB_MOBILE),
+    tf.feature_column.categorical_column_with_vocabulary_list('continent', vocabulary_list=VOCAB_CONTINENT),
+    tf.feature_column.categorical_column_with_hash_bucket('subContinent', hash_bucket_size=30),
     tf.feature_column.numeric_column('bounces'),
     tf.feature_column.numeric_column('hits'),
     tf.feature_column.numeric_column('newVisits'),

@@ -1,14 +1,19 @@
+import numpy as np
 import tensorflow as tf
 
 
 def build_deep_estimator(model_dir, hidden_units, optimizer, input_columns, run_config=None):
     # Input columns
-    (visitNumber, isMobile, bounces, hits, newVisits, pageviews, visits) = input_columns
+    (visitNumber, isMobile, continent, subContinent, bounces, hits, newVisits, pageviews, visits) = input_columns
 
     # Turn sparse columns into one-hot
     oh_isMobile = tf.feature_column.indicator_column(isMobile)
 
     feature_columns = [
+        # Embedding_column to "group" together
+        tf.feature_column.embedding_column(continent, np.floor((6 ** 0.25))),
+        tf.feature_column.embedding_column(subContinent, np.floor((23 ** 0.25))),
+
         # One-hot encoded columns
         oh_isMobile,
 
@@ -32,7 +37,7 @@ def build_deep_estimator(model_dir, hidden_units, optimizer, input_columns, run_
 
 def build_combined_estimator(model_dir, hidden_units, optimizer, input_columns, run_config=None):
     # Input columns
-    (visitNumber, isMobile, bounces, hits, newVisits, pageviews, visits) = input_columns
+    (visitNumber, isMobile, continent, subContinent, bounces, hits, newVisits, pageviews, visits) = input_columns
 
     deep_columns = [
         # Numeric columns

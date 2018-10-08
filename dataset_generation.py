@@ -47,7 +47,7 @@ unwanted_columns = ['channelGrouping', 'sessionId', 'socialEngagementType', 'vis
                     'mobileDeviceModel', 'mobileInputSelector', 'operatingSystem', 'operatingSystemVersion',
                     'screenColors', 'screenResolution', 'city', 'cityId', 'metro', 'networkDomain', 'networkLocation',
                     'adContent', 'adwordsClickInfo', 'campaign', 'isTrueDirect', 'keyword', 'medium',
-                    'referralPath', 'source', 'latitude', 'longitude', 'continent', 'country', 'region', 'subContinent']
+                    'referralPath', 'source', 'latitude', 'longitude', 'country', 'region']
 
 train = parse_data('data/train_raw.csv')
 train.to_csv('data/train_parsed.csv', index=False)

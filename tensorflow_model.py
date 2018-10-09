@@ -7,12 +7,12 @@ tf.logging.set_verbosity(tf.logging.INFO)
 TRAIN_PATH = 'data/tf_train.csv'
 VALIDATION_PATH = 'data/tf_validation.csv'
 TEST_PATH = 'data/test.csv'
-MODEL_DIR = 'models/model6'
-SUBMISSION_NAME = 'submission6.csv'
+MODEL_DIR = 'models/model7'
+SUBMISSION_NAME = 'submission7.csv'
 
 # Model parameters
 LEARNING_RATE = 0.0001
-HIDDEN_UNITS = [32, 32, 16]
+HIDDEN_UNITS = [128, 64, 32]
 STEPS = 50000
 BATCH_SIZE = 512
 
@@ -59,15 +59,17 @@ tf.estimator.train_and_evaluate(estimator, train_spec=train_spec, eval_spec=eval
 datatypes = {'fullVisitorId': 'str',
              'visitNumber': 'float32',
              'isMobile': 'str',
+             'continent': 'str',
+             'subContinent': 'str',
              'bounces': 'float32',
              'hits': 'float32',
              'newVisits': 'float32',
              'pageviews': 'float32',
              'visits': 'float32',
-             'year': 'float32',
-             'month': 'float32',
-             'day': 'float32',
-             'weekday': 'float32'}
+             'year': 'int32',
+             'month': 'int32',
+             'day': 'int32',
+             'weekday': 'int32'}
 
 test_raw = pd.read_csv(TEST_PATH, dtype=datatypes)
 prediction = estimator.predict(pandas_test_input_fn(test_raw))

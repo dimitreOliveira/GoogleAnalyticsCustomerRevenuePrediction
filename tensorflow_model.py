@@ -7,13 +7,14 @@ tf.logging.set_verbosity(tf.logging.INFO)
 TRAIN_PATH = 'data/tf_train.csv'
 VALIDATION_PATH = 'data/tf_validation.csv'
 TEST_PATH = 'data/test.csv'
-MODEL_DIR = 'models/model7'
-SUBMISSION_NAME = 'submission7.csv'
+MODEL_NAME = 'model17'
+MODEL_DIR = 'models/' + MODEL_NAME
+SUBMISSION_NAME = ('submission_%s.csv' % MODEL_NAME)
 
 # Model parameters
 LEARNING_RATE = 0.0001
-HIDDEN_UNITS = [128, 64, 32]
-STEPS = 50000
+HIDDEN_UNITS = [128, 64, 32, 16]
+STEPS = 100000
 BATCH_SIZE = 512
 
 

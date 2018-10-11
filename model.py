@@ -24,7 +24,7 @@ def build_deep_estimator(model_dir, hidden_units, optimizer, input_columns, run_
 
         # One-hot encoded columns
         oh_isMobile, oh_month,
-        oh_day, oh_weekday,
+        oh_weekday, oh_day,
 
         # Numeric columns
         visitNumber, bounces, hits, newVisits,

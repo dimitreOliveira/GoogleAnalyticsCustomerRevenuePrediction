@@ -8,7 +8,7 @@ The goal of the repository is to use the competitions dataset and model data tha
 ### What you will find
 * Loading the json files and parsing csv format. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/dataset_generation.py)
 * Data batch loading using Tensorflow. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/dataset_generation.py)
-* Preprocess each batch "ont the fly" with Tensorflow. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/dataset.py)
+* Preprocess each batch "on the fly" with Tensorflow. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/dataset.py)
 * Deep learning models using the estimator API from Tensorflow. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/model.py)
 * Model train, validation and analysis using Tensorboard. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/tensorflow_model.py)
 * Model prediction by batch with Tensorflow. [[link]](https://github.com/dimitreOliveira/GoogleAnalyticsCustomerRevenuePrediction/blob/master/tensorflow_model.py)
@@ -25,10 +25,8 @@ RStudio, the developer of free and open tools for R and enterprise-ready product
 In this competition, you’re challenged to analyze a Google Merchandise Store (also known as GStore, where Google swag is sold) customer dataset to predict revenue per customer. Hopefully, the outcome will be more actionable operational changes and a better use of marketing budgets for those companies who choose to use data analysis on top of GA data.
 
 ### Dependencies:
-* [csv](https://docs.python.org/3/library/csv.html)
 * [numpy](http://www.numpy.org/)
 * [pandas](http://pandas.pydata.org/)
-* [datetime](https://docs.python.org/2/library/datetime.html)
 * [tensorflow](https://www.tensorflow.org/)
 * [pylightgbm](https://github.com/ArdalanM/pyLightGBM)
 

@@ -25,10 +25,10 @@ RStudio, the developer of free and open tools for R and enterprise-ready product
 In this competition, you’re challenged to analyze a Google Merchandise Store (also known as GStore, where Google swag is sold) customer dataset to predict revenue per customer. Hopefully, the outcome will be more actionable operational changes and a better use of marketing budgets for those companies who choose to use data analysis on top of GA data.
 
 ### Dependencies:
-* [numpy](http://www.numpy.org/)
-* [pandas](http://pandas.pydata.org/)
-* [tensorflow](https://www.tensorflow.org/)
-* [pylightgbm](https://github.com/ArdalanM/pyLightGBM)
+* [NumPy](http://www.numpy.org/)
+* [Pandas](http://pandas.pydata.org/)
+* [Tensorflow](https://www.tensorflow.org/)
+* [PyLightGBM](https://github.com/ArdalanM/pyLightGBM)
 
 ### To-Do:
 * After the data leakage the competition database changed, so this work needs to be updated.
